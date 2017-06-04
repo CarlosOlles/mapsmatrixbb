@@ -1,6 +1,6 @@
-package es.colles.bean;
+package es.colles.dao;
 
-import es.colles.model.Task;
+import es.colles.model.QueryMaps;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,20 +9,20 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Component
-public class TaskDao {
+public class QueryMapsDAO {
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Transactional
-    public void save(Task task) {
-        entityManager.persist(task);
+    public void save(QueryMaps queryMaps) {
+        entityManager.persist(queryMaps);
     }
 
     @SuppressWarnings("unchecked")
-    public List<Task> list() {
+    public List<QueryMaps> list() {
 
-        return entityManager.createQuery("select t from Task t")
+        return entityManager.createQuery("select t from QueryMaps t")
                 .getResultList();
     }
 

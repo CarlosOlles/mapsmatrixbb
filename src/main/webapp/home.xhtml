@@ -1,29 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 template="/WEB-INF/templates/template.xhtml">
     <ui:define name="content">
-        <h1><h:outputText value="Hello From JSF"/></h1>
-        Message : #{taskHome}<br/>
+        <h1><h:outputText value="Colles Client for Google Maps Matrix API"/></h1>
+        Last queryMaps executed at: #{queryHome.lastDate}<br/>
         <br/>
-        <h2>Tasks</h2>
+        <h2>Queries</h2>
         <table>
-            <ui:repeat value="#{taskHome.tasks}" var="v_task">
+            <ui:repeat value="#{queryHome.queries}" var="v_query">
                 <tr>
-                    <td>#{v_task.id}</td>
-                    <td>#{v_task.description}</td>
+                    <td>#{v_query.id}</td>
+                    <td>#{v_query.description}</td>
                 </tr>
             </ui:repeat>
         </table>
 
         <h:form>
-            <div
-                    style="border-top: 1px solid #d0d0d0; margin-top: 12px; padding-top: 12px">
-                <h:inputText value="#{taskHome.task.description}" id="taskDesc"/><h:commandButton
-                    action="#{taskHome.saveTask}" value="Add"/><h:message for="taskDesc"
-                                                                          style="color : red;padding-left : 8px"/></div>
+            <div style="border-top: 1px solid #d0d0d0; margin-top: 12px; padding-top: 12px">
+                <h:panelGrid columns="2">
+
+                    <h:outputLabel value="Description of the queryMaps (optional)"></h:outputLabel>
+                    <h:inputText label="Description: " value="#{queryHome.queryMaps.description}"
+                                 id="queryDescription"/>
+
+                    <h:outputLabel value="Origins"></h:outputLabel>
+                    <h:inputText label="Origins: " value="#{queryHome.queryMaps.origins}" id="queryOrigins"/>
+
+                    <h:outputLabel value="Destinations"></h:outputLabel>
+                    <h:inputText label="Destinations: " value="#{queryHome.queryMaps.destinations}"
+                                 id="queryDestination"/>
+
+                    <h:outputLabel value="Key"></h:outputLabel>
+                    <h:inputText label="Key (if null, default): " value="#{queryHome.queryMaps.key}"
+                                 id="queryKey"/>
+                    <h:commandButton action="#{queryHome.saveQuery}" value="Get the time and distance!"/>
+                    <h:message for="queryDescription" style="color : red;padding-left : 8px"/>
+                </h:panelGrid>
+            </div>
 
         </h:form>
 
