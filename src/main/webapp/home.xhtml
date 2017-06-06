@@ -2,20 +2,12 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
                 template="/WEB-INF/templates/template.xhtml">
     <ui:define name="content">
         <h1><h:outputText value="Colles Client for Google Maps Matrix API"/></h1>
-        Last queryMaps executed at: #{queryHome.lastDate}<br/>
+        Last query executed at: #{queryHome.lastDate}<br/>
         <br/>
-        <h2>Queries</h2>
-        <table>
-            <ui:repeat value="#{queryHome.queries}" var="v_query">
-                <tr>
-                    <td>#{v_query.id}</td>
-                    <td>#{v_query.description}</td>
-                </tr>
-            </ui:repeat>
-        </table>
 
         <h:form>
             <div style="border-top: 1px solid #d0d0d0; margin-top: 12px; padding-top: 12px">
@@ -32,15 +24,60 @@
                     <h:inputText label="Destinations: " value="#{queryHome.queryMaps.destinations}"
                                  id="queryDestination"/>
 
+                    <h:outputLabel value="Mode"></h:outputLabel>
+
+                    <h:selectOneMenu label="Mode: " value="#{queryHome.queryMaps.mode}"
+                                     id="queryMode" hideNoSelectionOption="false">
+                        <f:selectItem itemValue="#{null}" itemLabel="All options"/>
+                        <f:selectItems value="#{queryHome.modes}"/>
+                    </h:selectOneMenu>
+
+
                     <h:outputLabel value="Key"></h:outputLabel>
                     <h:inputText label="Key (if null, default): " value="#{queryHome.queryMaps.key}"
                                  id="queryKey"/>
-                    <h:commandButton action="#{queryHome.saveQuery}" value="Get the time and distance!"/>
-                    <h:message for="queryDescription" style="color : red;padding-left : 8px"/>
+                    <h:commandButton action="#{queryHome.getInfoAndSaveQuery}" value="Get the time and distance!"/>
+                    <!--<h:message for="queryDescription" style="color : red;padding-left : 8px"/>-->
                 </h:panelGrid>
             </div>
 
-        </h:form>
+            <h2>Result</h2>
+            <table>
+                <ui:repeat value="#{queryHome.responseMaps}" var="v_responseMaps">
+                    <ui:repeat value="#{v_responseMaps.origin_addresses}" var="v_origin">
+                        <tr>
+                            <ui:repeat value="#{v_responseMaps.destination_addresses}" var="v_destination">
+                                <td>
+                                    <h:outputLabel>#{v_origin}</h:outputLabel>
+                                    <h:outputLabel> -> #{v_destination}</h:outputLabel>
+                                    <ui:repeat value="#{v_responseMaps.rows}" var="v_row">
+                                        <ui:repeat value="#{v_row.elements}" var="v_elements">
+                                            <h:outputLabel> - #{v_responseMaps.mode}</h:outputLabel>
+                                            <h:outputLabel> - #{v_elements.distance.text}</h:outputLabel>
+                                            <h:outputLabel> - #{v_elements.duration.text}</h:outputLabel>
+                                        </ui:repeat>
+                                    </ui:repeat>
+                                </td>
+                            </ui:repeat>
+                        </tr>
+                    </ui:repeat>
+                </ui:repeat>
+            </table>
 
+            <h2>Queries Done</h2>
+            <table>
+                <ui:repeat value="#{queryHome.queries}" var="v_query">
+                    <tr>
+                        <td>
+                            <h:commandLink immediate="true" action="#{queryHome.onClickQuery}"
+                                           value="#{v_query.mode} - #{v_query.description} - #{v_query.origins} - #{v_query.destinations}">
+                                <f:setPropertyActionListener target="#{queryHome.selectedQuery}"
+                                                             value="#{v_query.query}"/>
+                            </h:commandLink>
+                        </td>
+                    </tr>
+                </ui:repeat>
+            </table>
+        </h:form>
     </ui:define>
 </ui:composition>

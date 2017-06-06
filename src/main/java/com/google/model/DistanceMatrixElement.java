@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package es.colles.model;
+package com.google.model;
 
 /**
  * A single result corresponding to a origin/destination pair in a Distance Matrix response.
@@ -28,11 +28,11 @@ public class DistanceMatrixElement {
      * <p>
      * Will be one of {@link DistanceMatrixElementStatus}.
      */
-    public DistanceMatrixElementStatus status;
+    private DistanceMatrixElementStatus status;
     /**
      * {@code duration} indicates the total duration of this leg
      */
-    public Duration duration;
+    private Duration duration;
     /**
      * {@code durationInTraffic} indicates the length of time to travel this route,
      * based on current and historical traffic conditions.  The duration in traffic
@@ -44,11 +44,11 @@ public class DistanceMatrixElement {
      * <li>The mode parameter is set to driving.</li>
      * </ol>
      */
-    public Duration durationInTraffic;
+    private Duration durationInTraffic;
     /**
      * {@code distance} indicates the total distance covered by this leg.
      */
-    public Distance distance;
+    private Distance distance;
 
     public DistanceMatrixElementStatus getStatus() {
         return status;
@@ -108,16 +108,15 @@ public class DistanceMatrixElement {
     public class Distance {
 
         /**
-         * This is the numeric distance, always in meters. This is intended to be used only in algorithmic
-         * situations, e.g. sorting results by some user specified metric.
-         */
-        public long value;
-
-        /**
          * This is the human friendly distance. This is rounded and in an appropriate unit for the
          * request. The units can be overriden with a request parameter.
          */
-        public String text;
+        private String text;
+        /**
+         * This is the numeric distance, always in meters. This is intended to be used only in algorithmic
+         * situations, e.g. sorting results by some user specified metric.
+         */
+        private long value;
 
         public long getValue() {
             return value;
@@ -147,11 +146,11 @@ public class DistanceMatrixElement {
          * This is the numeric duration, in seconds. This is intended to be used only in algorithmic
          * situations, e.g. sorting results by some user specified metric.
          */
-        public long value;
+        private long value;
         /**
          * This is the human friendly duration. Use this for display purposes.
          */
-        public String text;
+        private String text;
 
         public long getValue() {
             return value;

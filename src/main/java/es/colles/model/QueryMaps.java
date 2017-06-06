@@ -14,7 +14,7 @@ public class QueryMaps {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(length = 48)
+    @Column(length = 50)
     @Size(max = 48)
     private String description;
 
@@ -23,6 +23,8 @@ public class QueryMaps {
 
     @NotEmpty
     private String destinations;
+
+    private String query;
 
     private String key;
 
@@ -140,5 +142,13 @@ public class QueryMaps {
     public void setTimeStamp() {
         Date timeStamp = new Date();
         this.timeStamp = timeStamp;
+    }
+
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
     }
 }

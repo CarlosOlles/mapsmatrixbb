@@ -27,7 +27,7 @@ public class QueryMapsHomeTest {
     public void shouldSaveTaskAndResetTaskInstanceOnBean() {
         QueryMaps oldQueryMaps = queryHome.getQueryMaps();
         queryHome.getQueryMaps().setDescription("Sample Description");
-        queryHome.saveQuery();
+        queryHome.getInfoAndSaveQuery();
         Assert.assertNotNull("Saved task ID is null,probably not saved", oldQueryMaps.getId());
         Assert.assertNull("QueryMaps has not been reset", queryHome.getQueryMaps().getDescription());
         Assert.assertNull("QueryMaps has not been reset", queryHome.getQueryMaps().getId());

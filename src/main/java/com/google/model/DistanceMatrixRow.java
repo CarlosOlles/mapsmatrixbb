@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package es.colles.model;
+package com.google.model;
 
 
 /**
@@ -25,7 +25,7 @@ public class DistanceMatrixRow {
     /**
      * {@code elements} contains the results for this row, or individual origin.
      */
-    public DistanceMatrixElement[] elements;
+    private DistanceMatrixElement[] elements;
 
     public DistanceMatrixElement[] getElements() {
         return elements;

@@ -1,6 +1,8 @@
 package es.colles.model;
 
 
+import com.google.model.DistanceMatrixRow;
+
 import javax.persistence.Id;
 
 /**
@@ -15,7 +17,7 @@ public class ResponseMaps {
     private String[] origin_addresses;
     private String[] destination_addresses;
     private DistanceMatrixRow[] rows;
-
+    private String mode;
 
     public String getStatus() {
         return status;
@@ -63,5 +65,13 @@ public class ResponseMaps {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getMode() {
+        return mode;
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode;
     }
 }
