@@ -13,18 +13,25 @@
             <div style="border-top: 1px solid #d0d0d0; margin-top: 12px; padding-top: 12px">
                 <h:panelGrid columns="2">
 
-                    <h:outputLabel value="Description of the queryMaps (optional)"></h:outputLabel>
+                    <h:outputLabel value="Description of the queryMaps"></h:outputLabel>
                     <h:inputText label="Description: " value="#{queryHome.queryMaps.description}"
                                  id="queryDescription"/>
 
-                    <h:outputLabel value="Origins"></h:outputLabel>
+                    <h:outputLabel value="Origins *"></h:outputLabel>
                     <h:inputText label="Origins: " value="#{queryHome.queryMaps.origins}" id="queryOrigins"/>
 
-                    <h:outputLabel value="Destinations"></h:outputLabel>
+                    <h:outputLabel value="Destinations *"></h:outputLabel>
                     <h:inputText label="Destinations: " value="#{queryHome.queryMaps.destinations}"
                                  id="queryDestination"/>
 
-                    <h:outputLabel value="Mode"></h:outputLabel>
+                    <h:outputLabel value="Units *"></h:outputLabel>
+                    <h:selectOneMenu label="Unit: " value="#{queryHome.queryMaps.units}"
+                                     id="queryUnits" hideNoSelectionOption="false">
+                        <!--<f:selectItem itemValue="#{null}" itemLabel="All options"/>-->
+                        <f:selectItems value="#{queryHome.units}"/>
+                    </h:selectOneMenu>
+
+                    <h:outputLabel value="Mode *"></h:outputLabel>
 
                     <h:selectOneMenu label="Mode: " value="#{queryHome.queryMaps.mode}"
                                      id="queryMode" hideNoSelectionOption="false">

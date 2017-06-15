@@ -36,7 +36,6 @@ public class QueryManager {
     private static final String CONST_LANG_ES = "es-ES";
     private static final String CONST_KEY = "key";
     private static final String CONST_UNITS = "units";
-    private static final String CONST_IMPERIAL = "imperial";
 
     private static final Logger logger = LoggerFactory.getLogger(QueryHome.class);
 
@@ -68,7 +67,6 @@ public class QueryManager {
                 queryMapsFor.setQuery(queryText);
                 logger.debug("Lanzo consulta-> " + queryText);
 
-                queryMapsFor.setMode(mode);
                 saveQuery(queryMapsFor);
                 ResponseMaps responseMaps = executeGet(queryText);
                 responseMaps.setMode(queryMapsFor.getMode());
@@ -78,6 +76,7 @@ public class QueryManager {
             queryText = buildQuery(queryMaps);
             queryMaps.setQuery(queryText);
             logger.debug("Lanzo consulta-> " + queryText);
+            saveQuery(queryMaps);
 
             ResponseMaps responseMaps = executeGet(queryText);
             responseMaps.setMode(queryMaps.getMode());
@@ -88,7 +87,7 @@ public class QueryManager {
     }
 
     public ResponseMaps executeGet(String queryText) {
-        ResponseMaps responseMaps = null;
+        ResponseMaps responseMaps = new ResponseMaps();
         try {
             Client client = Client.create();
             WebResource webResource = client.resource(queryText);
@@ -119,7 +118,7 @@ public class QueryManager {
         String mode = queryMaps.getMode();
         String origins = queryMaps.getOrigins().replace(" ", "+");
         String destinations = queryMaps.getDestinations().replace(" ", "+");
-        String units = queryMaps.getUnits() != null ? queryMaps.getUnits() : CONST_IMPERIAL;
+        String units = queryMaps.getUnits();
         String lang = queryMaps.getLanguage() != null ? queryMaps.getLanguage() : CONST_LANG_ES;
         String queryText = MAPS_API_URL + "/distancematrix/json?" + CONST_UNITS + EQUAL + units + AND + CONST_ORIGINS +
                 EQUAL +
@@ -129,6 +128,7 @@ public class QueryManager {
                 + EQUAL + destinations + AND + CONST_MODE + EQUAL + mode + AND + CONST_LANGUAGE + EQUAL +
                 lang + AND + CONST_KEY + "=";
         queryText = queryText.replace("|", "%7C");
+        queryText = queryText.replace("º", "&ordm;");
         queryText = queryText.concat(key);
         return queryText;
     }

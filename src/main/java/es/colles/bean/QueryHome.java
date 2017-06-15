@@ -26,11 +26,12 @@ public class QueryHome {
 
     @Autowired
     private MapsConfig mapsConfig;
-
     private QueryMaps queryMaps = new QueryMaps();
     private List<ResponseMaps> responseMaps = new ArrayList<>();
     private List<QueryMaps> queries;
     private Date lastDate;
+    private List<String> modes;
+    private List<String> units;
 
     public String getSelectedQuery() {
         return selectedQuery;
@@ -42,7 +43,7 @@ public class QueryHome {
 
     public String getMessage() {
         logger.debug("Returning message from queryMaps home bean");
-        return "Hello from Spring";
+        return "Carlos rulz!!";
     }
 
     public QueryMaps getQueryMaps() {
@@ -73,6 +74,7 @@ public class QueryHome {
     public void onClickQuery() {
         responseMaps.clear();
         responseMaps.add(queryManager.executeGet(selectedQuery));
+        logger.debug("yeaah");
     }
 
 
@@ -84,19 +86,28 @@ public class QueryHome {
         this.lastDate = lastDate;
     }
 
-    public List<String> getModes() {
-
-        return mapsConfig.getModes();
-    }
-
-    public void setModes(List<String> modes) {
-    }
-
     public List<ResponseMaps> getResponseMaps() {
         return responseMaps;
     }
 
     public void setResponseMaps(List<ResponseMaps> responseMaps) {
         this.responseMaps = responseMaps;
+    }
+
+
+    public List<String> getModes() {
+        return mapsConfig.getModes();
+    }
+
+    public void setModes() {
+        this.modes = mapsConfig.getModes();
+    }
+
+    public List<String> getUnits() {
+        return mapsConfig.getUnits();
+    }
+
+    public void setUnits() {
+        this.units = mapsConfig.getUnits();
     }
 }

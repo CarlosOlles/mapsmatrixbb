@@ -14,19 +14,8 @@ import java.util.List;
 @EnableScheduling
 public class MapsConfig {
 
-//    @Autowired
-//    private QueryHome queryHome;
-
     private List<String> modes = new ArrayList<>();
-
-
-    @PostConstruct
-    private void initializeModes() {
-        modes.add("driving");
-        modes.add("walking");
-        modes.add("bicycling");
-//        queryHome.setModes(modes);
-    }
+    private List<String> units = new ArrayList<>();
 
     public List<String> getModes() {
         return modes;
@@ -35,4 +24,27 @@ public class MapsConfig {
     public void setModes(List<String> modes) {
         this.modes = modes;
     }
+
+    public List<String> getUnits() {
+        return units;
+    }
+
+    public void setUnits(List<String> units) {
+        this.units = units;
+    }
+
+    @PostConstruct
+    private void initializeModes() {
+        modes.add("driving");
+        modes.add("walking");
+        modes.add("bicycling");
+    }
+
+    @PostConstruct
+    private void initializeUnits() {
+        units.add("metric");
+        units.add("imperial");
+    }
+
+
 }
